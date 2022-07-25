@@ -15,10 +15,6 @@ export class Config {
 	constructor() {
 		// default / fallback config
 		this.config = {
-			app: {
-				port: process.env.PORT || '8080',
-				environment: process.env.NODE_ENV || 'development',
-			},
 			someSetting: {
 				xyz: 'hurray',
 			},
