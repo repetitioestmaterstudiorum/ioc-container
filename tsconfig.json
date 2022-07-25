@@ -1,0 +1,49 @@
+{
+  // https://www.typescriptlang.org/tsconfig/
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES2017",
+    "module": "CommonJS",
+    "removeComments": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
+
+    /* Compatibility */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": false,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+
+    /* Module Resolution Options */
+    "baseUrl": ".",
+    "paths": {
+      /* Support absolute imports with a leading '/' */
+      "/*": ["*"]
+    },
+    "moduleResolution": "Node",
+
+    // Use esbuild for building
+    "noEmit": true, // Write no JS files
+    "incremental": false, // Write no .tsbuildinfo file
+    "outDir": "build/tsc" // (just in case)
+  },
+
+  "include": ["src", "tests", "types", "vitest.config.ts", "esbuild.mjs"],
+  "exclude": ["node_modules", "build"],
+
+  // make sure ts-node understands the paths config above
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
