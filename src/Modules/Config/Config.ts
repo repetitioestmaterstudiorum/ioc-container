@@ -23,8 +23,8 @@ export class Config {
 
 	public async get(name: NestedKeyOf<typeof this.config>) {
 		const DbModule = Container.get<ModuleTypes['Db']>('Db')
-		const ConfigCollection = DbModule.collection('config')
-		const dbConfig = await ConfigCollection.findOne({ name })
+		const ConfigCollection = DbModule.getCollection('config')
+		const dbConfig = await ConfigCollection.raw.findOne({ name })
 		return dbConfig?.config || _.get(this.config, name)
 	}
 }
