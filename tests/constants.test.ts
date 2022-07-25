@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { C } from '/src/config'
+import { C } from '/src/constants'
 
-describe('config tests', () => {
+describe('constants tests', () => {
 	it('C.app.port is defined', () => {
 		expect(C.app.port).toBeDefined()
 	})
