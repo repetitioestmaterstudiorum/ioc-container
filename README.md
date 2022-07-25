@@ -1,5 +1,7 @@
 # ioc-container
 
+This app is based on the ts-boiler app: [github.com/repetitioestmaterstudiorum/ts-boiler](https://github.com/repetitioestmaterstudiorum/ts-boiler).
+
 ## Dependency Injection Container
 
 This is app contains a minimal DI container solution, which allows for inversion of control -> that objects don't instantiate instances of other objects they rely on. The instantiation of objects happens in one place, from whith these instances are provided using the container to wherever they are needed throughout the code base.
