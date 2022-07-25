@@ -4,6 +4,11 @@ import { NestedKeyOf } from '/types/utilityTypes'
 
 // ---
 
+/*
+- this service allows for a config paradigm that always first checks if the config key is in the db, and if not, uses the fallback (default) config in the code
+- this requires that every configuration has a default config in the Config object
+*/
+
 export class Config {
 	private config
 
