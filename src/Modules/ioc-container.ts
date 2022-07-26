@@ -29,7 +29,7 @@ class IOCContainer {
 
 	public registerModule(moduleName: string, module: unknown) {
 		console.info(`addModule(): ${moduleName}`)
-		if (this.C.app.port !== 'test' && this.modules.has(moduleName)) {
+		if (this.C.app.environment !== 'test' && this.modules.has(moduleName)) {
 			const errMsg = `module ${moduleName} already registered`
 			console.error(errMsg)
 			throw new Error(errMsg)
