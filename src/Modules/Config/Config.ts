@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { Container, ModuleTypes } from '/src/Modules/ioc-container'
+import type { DefaultConfig } from '/types/t.defaultConfig'
 import { NestedKeyOf } from '/types/utilityTypes'
 
 // ---
@@ -12,13 +13,8 @@ import { NestedKeyOf } from '/types/utilityTypes'
 export class Config {
 	private config
 
-	constructor() {
-		// default / fallback config
-		this.config = {
-			someSetting: {
-				xyz: 'hurray',
-			},
-		}
+	constructor(fallbackConfig: DefaultConfig) {
+		this.config = fallbackConfig
 	}
 
 	public async get(name: NestedKeyOf<typeof this.config>) {

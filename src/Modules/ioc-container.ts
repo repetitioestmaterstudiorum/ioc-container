@@ -2,6 +2,7 @@ import { Db } from '/src/Modules/Db/Db'
 import { Config } from '/src/Modules/Config/Config'
 import type { Constants } from '/types/t.constants'
 import { MongoClient } from 'mongodb'
+import { defaultConfig } from '/src/Modules/Config/defaultConfig'
 
 // ---
 
@@ -62,7 +63,7 @@ export async function initContainer(C: Constants) {
 		await DbModule.connectDb()
 
 		// set up regular modules
-		Container.registerModule('Config', new Config())
+		Container.registerModule('Config', new Config(defaultConfig))
 
 		console.info('addAllModules() added all modules')
 	} catch (e) {
