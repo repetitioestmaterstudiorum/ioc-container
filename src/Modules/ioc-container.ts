@@ -1,6 +1,7 @@
 import { Db } from '/src/Modules/Db/Db'
 import { Config } from '/src/Modules/Config/Config'
-import { C } from '/src/constants'
+import type { Constants } from '/types/t.constants'
+import { MongoClient } from 'mongodb'
 
 // ---
 
@@ -9,10 +10,14 @@ import { C } from '/src/constants'
 - getting a module: Container.get<ModuleTypes['Db']>('Db')
 */
 class IOCContainer {
+	private C: Constants
 	private modules = new Map<string, unknown>()
 
+	constructor(C: Constants) {
+		this.C = C
+	}
+
 	public get<T>(moduleName: string) {
-		console.log('moduleName', moduleName)
 		if (!this.modules.has(moduleName)) {
 			const errMsg = `module ${moduleName} does not exist in the container`
 			console.error(errMsg)
@@ -23,7 +28,7 @@ class IOCContainer {
 
 	public registerModule(moduleName: string, module: unknown) {
 		console.info(`addModule(): ${moduleName}`)
-		if (C.app.port !== 'test' && this.modules.has(moduleName)) {
+		if (this.C.app.port !== 'test' && this.modules.has(moduleName)) {
 			const errMsg = `module ${moduleName} already registered`
 			console.error(errMsg)
 			throw new Error(errMsg)
@@ -32,7 +37,7 @@ class IOCContainer {
 	}
 }
 
-export const Container = new IOCContainer()
+export let Container: IOCContainer
 
 /*
 - each module that should be available in the container must be added here
@@ -45,9 +50,18 @@ export type ModuleTypes = {
 	Config: Config
 }
 
-export async function initContainer() {
+export async function initContainer(C: Constants) {
 	try {
-		Container.registerModule('Db', new Db())
+		// set up the container itself
+		Container = new IOCContainer(C)
+
+		// set up the DbModule (special case)
+		const dbClient = new MongoClient(C.db.url)
+		Container.registerModule('Db', new Db(dbClient, C))
+		const DbModule = Container.get<ModuleTypes['Db']>('Db')
+		await DbModule.connectDb()
+
+		// set up regular modules
 		Container.registerModule('Config', new Config())
 
 		console.info('addAllModules() added all modules')

@@ -1,14 +1,13 @@
-import { connectDbClient } from '/src/Modules/Db/Db'
 import { Container, initContainer } from '/src/Modules/ioc-container'
 import type { ModuleTypes } from '/src/Modules/ioc-container'
+import { C } from '/src/constants'
 
 // ---
 
 // startup function
 async function startup() {
-	// initialize the db client connection and the IoC container
-	await connectDbClient()
-	await initContainer()
+	// initialize the db client connection, the IoC container and all modules
+	await initContainer(C)
 
 	// DbModule demo
 	const DbModule = Container.get<ModuleTypes['Db']>('Db')
