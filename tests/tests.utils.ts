@@ -9,15 +9,15 @@ import { Container } from '/src/Modules/Container'
 export async function getTestUtils() {
 	// get uri from in-memory db server
 	const memoryDbServer = new TestDbMemoryServer()
-	const testConstants = { ...C }
-	testConstants.db.uri = await memoryDbServer.initServer()
-	testConstants.db.name = `test-db--${getDateAndTimeString()}`
+	const testC = { ...C }
+	testC.db.uri = await memoryDbServer.initServer()
+	testC.db.name = `test-db--${getDateAndTimeString()}`
 
 	// initialize the container with the in-memory db
 	const dbClient = new MongoClient(C.db.uri)
 	Container.registerModule('Db', new Db(dbClient, C))
 
-	return { memoryDbServer, C, Container }
+	return { memoryDbServer, testC, Container }
 }
 
 // in memory mongodb server class for testing
