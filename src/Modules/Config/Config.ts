@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Container, ModuleTypes } from '/src/Modules/ioc-container'
+import { Container, ModuleTypes } from '/src/Modules/Container'
 import type { DefaultConfig } from '/types/t.defaultConfig'
 import { NestedKeyOf } from '/types/utilityTypes'
 

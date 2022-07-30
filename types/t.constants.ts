@@ -4,7 +4,7 @@ export type Constants = {
 		environment: string
 	}
 	db: {
-		url: string
+		uri: string
 		name: string
 	}
 }

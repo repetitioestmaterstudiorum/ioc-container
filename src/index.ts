@@ -1,17 +1,26 @@
-import { Container, initContainer } from '/src/Modules/ioc-container'
-import type { ModuleTypes } from '/src/Modules/ioc-container'
+import { MongoClient } from 'mongodb'
 import { C } from '/src/constants'
+import { defaultConfig } from '/src/Modules/Config/defaultConfig'
+import { Db } from '/src/Modules/Db/Db'
+import { Config } from '/src/Modules/Config/Config'
+import { Container } from './Modules/Container'
+import type { ModuleTypes } from './Modules/Container'
 
 // ---
 
 // startup function
 async function startup() {
-	// initialize the db client connection, the IoC container and all modules
-	await initContainer(C)
-
-	// DbModule demo
+	// register all modules
+	// set up the Db module (special case)
+	const dbClient = new MongoClient(C.db.uri)
+	await dbClient.connect()
+	Container.registerModule('Db', new Db(dbClient, C))
 	const DbModule = Container.get<ModuleTypes['Db']>('Db')
 
+	// set up regular modules
+	Container.registerModule('Config', new Config(defaultConfig))
+
+	// DbModule demo
 	const collections = await DbModule.listCollections().toArray()
 
 	const TestCollection = DbModule.getCollection('test')

@@ -21,6 +21,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "mongodb": "^4.8.0",
+    "mongodb-memory-server": "^8.8.0",
     "pm2": "^5.2.0"
   },
   "devDependencies": {
