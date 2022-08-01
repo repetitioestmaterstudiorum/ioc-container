@@ -3,19 +3,23 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import { Db } from '/src/Modules/Db/Db'
 import { C } from '/src/constants'
 import { Container } from '/src/Modules/Container'
+import { cloneDeep } from 'lodash'
 
 // ---
 
 export async function getTestUtils() {
 	// get uri from in-memory db server
 	const memoryDbServer = new TestDbMemoryServer()
-	const testC = { ...C }
-	testC.db.uri = await memoryDbServer.initServer()
+	const memoryDbServerUri = await memoryDbServer.initServer()
+
+	// prepare test C
+	const testC = cloneDeep(C)
+	testC.db.uri = memoryDbServerUri
 	testC.db.name = `test-db--${getDateAndTimeString()}`
 
 	// initialize the container with the in-memory db
-	const dbClient = new MongoClient(C.db.uri)
-	Container.registerModule('Db', new Db(dbClient, C))
+	const dbClient = new MongoClient(testC.db.uri)
+	Container.registerModule('Db', new Db(dbClient, testC.db.name))
 
 	return { memoryDbServer, testC, Container }
 }

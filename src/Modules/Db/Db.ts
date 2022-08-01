@@ -1,14 +1,13 @@
 import { Db as MongoDb, MongoClient } from 'mongodb'
 import { CustomCollection } from '/src/Modules/Db/CustomCollection'
-import { Constants } from '/types/t.constants'
 
 // ---
 
 export class Db extends MongoDb {
 	private customCollections = new Map<string, CustomCollection>()
 
-	constructor(dbClient: MongoClient, C: Constants) {
-		super(dbClient, C.db.name)
+	constructor(dbClient: MongoClient, dbName: string) {
+		super(dbClient, dbName)
 	}
 
 	public getCollection(collectionName: string) {
