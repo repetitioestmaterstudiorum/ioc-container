@@ -15,11 +15,10 @@ export async function getTestUtils() {
 	// prepare test C
 	const testC = cloneDeep(C)
 	testC.db.uri = memoryDbServerUri
-	testC.db.name = `test-db--${getDateAndTimeString()}`
 
 	// initialize the container with the in-memory db
 	const dbClient = new MongoClient(testC.db.uri)
-	Container.registerModule('Db', new Db(dbClient, testC.db.name))
+	Container.registerModule('Db', new Db(dbClient, `test-db--${getDateAndTimeString()}`))
 
 	return { memoryDbServer, testC, Container }
 }

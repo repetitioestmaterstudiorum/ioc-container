@@ -1,16 +1,20 @@
-import type { Constants } from '/types/t.constants'
+import os from 'os'
 
 // ---
 
 // All the unchangeable (in runtime) configuration goes here. Everything else -> ConfigModule
-const constants: Constants = {
+const constants = {
 	app: {
+		name: 'ioc-container',
+		hostname: os.hostname(),
 		port: process.env.PORT || '8080',
-		environment: process.env.NODE_ENV || 'development',
+		env: process.env.NODE_ENV || 'development',
+		isDev: process.env.NODE_ENV === 'development',
+		isTest: process.env.NODE_ENV === 'test',
+		isProd: process.env.NODE_ENV === 'production',
 	},
 	db: {
 		uri: process.env.MONGO_URI || 'mongodb://localhost:27017',
-		name: 'ioc-container',
 	},
 }
 

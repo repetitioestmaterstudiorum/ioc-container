@@ -14,7 +14,7 @@ async function startup() {
 	// set up the Db module (special case)
 	const dbClient = new MongoClient(C.db.uri)
 	await dbClient.connect()
-	Container.registerModule('Db', new Db(dbClient, C.db.name))
+	Container.registerModule('Db', new Db(dbClient, C.app.name))
 	const DbModule = Container.get<ModuleTypes['Db']>('Db')
 
 	// set up regular modules
