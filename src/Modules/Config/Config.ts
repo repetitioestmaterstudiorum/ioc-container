@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { Container, ModuleTypes } from '/src/Modules/Container'
-import type { DefaultConfig } from '/types/t.defaultConfig'
-import { NestedKeyOf } from '/types/utilityTypes'
+import { NestedKeyOf } from '/types/types.utils'
+import type { DefaultConfig } from '/src/Modules/Config/defaultConfig'
 
 // ---
 

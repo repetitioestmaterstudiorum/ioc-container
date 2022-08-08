@@ -1,9 +1,7 @@
-import type { DefaultConfig } from '/types/t.defaultConfig'
-
-// ---
-
-export const defaultConfig: Readonly<DefaultConfig> = {
+export const defaultConfig = {
 	someSetting: {
 		xyz: 'hurray - this is the default config',
 	},
 }
+
+export type DefaultConfig = typeof defaultConfig

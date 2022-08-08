@@ -13,7 +13,8 @@
     "tsc": "tsc -p tsconfig.json",
     "build": "rimraf build/ && node esbuild.js",
     "start": "pm2 start build/main.js -o '/dev/null' -e '/dev/null' --no-daemon --name='ioc-container'",
-    "pm2": "./node_modules/pm2/bin/pm2"
+    "pm2": "./node_modules/pm2/bin/pm2",
+    "reset": "rm -rf node_modules/ && rm package-lock.json && npm i"
   },
   "engines": {
     "node": "^16"
