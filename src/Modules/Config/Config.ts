@@ -11,16 +11,16 @@ import { NestedKeyOf } from '/types/utilityTypes'
 */
 
 export class Config {
-	private config
+	private defaultConfig
 
-	constructor(fallbackConfig: DefaultConfig) {
-		this.config = fallbackConfig
+	constructor(defaultConfig: DefaultConfig) {
+		this.defaultConfig = defaultConfig
 	}
 
-	public async get(name: NestedKeyOf<typeof this.config>) {
+	public async get(name: NestedKeyOf<typeof this.defaultConfig>) {
 		const DbModule = Container.get<ModuleTypes['Db']>('Db')
 		const ConfigCollection = DbModule.getCollection('config')
 		const dbConfig = await ConfigCollection.raw.findOne({ name })
-		return dbConfig?.config || _.get(this.config, name)
+		return dbConfig?.config || _.get(this.defaultConfig, name)
 	}
 }
