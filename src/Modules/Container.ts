@@ -33,7 +33,6 @@ export class IOCContainer {
 export const Container = new IOCContainer()
 
 // each module type the Container can hold must be added here
-
 export type ModuleTypes = {
 	Db: Db
 	Config: Config

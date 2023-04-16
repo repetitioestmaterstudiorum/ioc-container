@@ -1,16 +1,14 @@
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { getTestUtils, TestDbMemoryServer } from '/tests/tests.utils'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { getTestUtils } from '/tests/tests.utils'
 import { ModuleTypes } from '/src/Modules/Container'
 
 // ---
 
-let dbServer: TestDbMemoryServer
 let DbModule: ModuleTypes['Db']
 
 beforeAll(async () => {
-	const { memoryDbServer, Container } = await getTestUtils()
+	const { Container } = await getTestUtils()
 
-	dbServer = memoryDbServer
 	DbModule = Container.get<ModuleTypes['Db']>('Db')
 })
 
@@ -116,8 +114,4 @@ describe('CustomCollection Class', async () => {
 			expect(typeof doc?._id).toBe('string')
 		})
 	})
-})
-
-afterAll(async () => {
-	await dbServer.stopServer()
 })

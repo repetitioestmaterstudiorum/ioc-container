@@ -8,19 +8,19 @@ import type { ModuleTypes } from './Modules/Container'
 
 // ---
 
-// startup function
 async function startup() {
-	// register all modules
+	// *register all modules*
 	// set up the Db module (special case)
 	const dbClient = new MongoClient(C.db.uri)
 	await dbClient.connect()
 	Container.registerModule('Db', new Db(dbClient, C.app.name))
-	const DbModule = Container.get<ModuleTypes['Db']>('Db')
 
 	// set up regular modules
 	Container.registerModule('Config', new Config(defaultConfig))
 
+	// *use modules*
 	// DbModule demo
+	const DbModule = Container.get<ModuleTypes['Db']>('Db')
 	const collections = await DbModule.listCollections().toArray()
 
 	const TestCollection = DbModule.getCollection('test')

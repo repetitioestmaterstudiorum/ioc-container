@@ -4,9 +4,11 @@ This app is based on the ts-boiler app: [github.com/repetitioestmaterstudiorum/t
 
 ## Dependency Injection Container
 
-This is app contains a minimal DI container solution, which allows for inversion of control -> that objects don't instantiate instances of other objects they rely on. The instantiation of objects happens in one place, from whith these instances are provided using the container to wherever they are needed throughout the code base.
+This is app contains a minimal DI container solution, which allows for inversion of control -> that objects don't instantiate instances of other objects they rely on. The instantiation of objects happens in one place, from which these instances are provided using the container to wherever they are needed throughout the code base.
 
 https://www.codequality.rocks/post/use-dependency-injection
+
+I call services modules in my code, but it makes no difference. There are 2 demo services/modules: Db and Config.
 
 ## Config paradigm
 
@@ -14,13 +16,13 @@ This app also contains a configuration paradigm that allows for a default config
 
 ## CustomCollection class (MondoDB)
 
-Last but not least, this app contains a custom mongo db class that utilizes the CustomCollection class. This class is a simplification of mongo db's default nodejs driver collection methods. It also adds basic fields like updatedAt and createdAt automatically. It inserts documents with the stringified version of Mongo's ObjectIds by default.
+Last but not least, this app contains a custom mongo db class named CustomCollection. This class contains a simplified set of mongo db's default Node.js driver collection methods. It also adds basic fields like updatedAt and createdAt automatically. It inserts documents with the stringified version of Mongo's ObjectIds by default.
 
 ## Development
 
--   create a .env file for your secrets: `touch .env` (if secretes are needed)
--   run `npm run dev`
--   test with `npm test` or `npm run test:full` if you're feeling like a hero
+-   create a .env file for your secrets: `touch .env` (if secrets are needed)
+-   `npm run dev`
+-   test with `npm test` or `npm run test:full`
 
 ## Deployment
 
